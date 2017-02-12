@@ -22,8 +22,16 @@ namespace nand2tetris_asm
 
 			var sourceCode = File.ReadAllLines(args[0]);
 			var processedCode = Preprocessor.Do(sourceCode);
-			var instructionSet = processedCode.Select(Tokenizer.Tokenize).ToList();
-			var compiledAscii = new Compiler().Do(instructionSet);
+
+			var symProc = new SymbolsProcessor();
+			symProc.Do(processedCode);
+
+			var unsymbolizedCode = symProc.ProcessedLines;
+			var symbols = symProc.Table;
+
+			var instructionSet = unsymbolizedCode.Select(Tokenizer.Tokenize).ToList();
+
+			var compiledAscii = new Compiler(symbols).Do(instructionSet);
 			File.WriteAllLines(buildOutputPath(args[0]), compiledAscii);
 		}
 	}

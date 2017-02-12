@@ -43,6 +43,11 @@
     <Compile Include="DestinationTable.cs" />
     <Compile Include="TableBase.cs" />
     <Compile Include="JumpTable.cs" />
+    <Compile Include="SymbolsTable.cs" />
+    <Compile Include="SymbolsProcessor.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="readme.md" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

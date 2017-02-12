@@ -12,9 +12,33 @@ namespace nand2tetris_asm
 		DestinationTable destTable = new DestinationTable();
 		JumpTable        jumpTable = new JumpTable();
 
+		SymbolsTable symbols;
+
+		public Compiler(SymbolsTable _symbols)
+		{
+			this.symbols = _symbols;
+		}
+
 		private string TranslateAddressToken(Token token)
 		{
-			uint address = Convert.ToUInt16(token.Content);
+			uint address;
+			if (this.symbols.HasSymbol(token.Content))
+			{
+				address = this.symbols[token.Content];
+			}
+			else
+			{
+				try
+				{
+					address = Convert.ToUInt16(token.Content);
+				}
+				catch (FormatException)
+				{
+					symbols.AddVariable(token.Content);
+					address = symbols[token.Content];
+				}
+			}
+
 			string addrBinValue = Convert.ToString(address, 2);
 			return addrBinValue.PadLeft(WORD_SIZE, '0');
 		}

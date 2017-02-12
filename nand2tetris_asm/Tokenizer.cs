@@ -2,11 +2,6 @@
 
 namespace nand2tetris_asm
 {
-	// DISCLAIMER: I had to write a fair top-down parser probably.
-	// But it's too light lexic to set up a state machine.
-	// It also the part of contract that there is NO invalid asm input
-	// I'm ok with this, I don't even have a Invalid token type in enum
-
 	public class Tokenizer
 	{
 		private static List<TokenType> CInstruction = new List<TokenType>
